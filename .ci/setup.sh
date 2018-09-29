@@ -59,4 +59,4 @@ if [[ $TRAVIS == "true" ]]; then
     conda config --set always_yes yes --set changeps1 no
     conda update -q conda
 fi
-sudo apt-cache madison libc
+sudo apt-cache policy libc6
