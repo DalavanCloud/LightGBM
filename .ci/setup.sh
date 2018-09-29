@@ -59,4 +59,4 @@ if [[ $TRAVIS == "true" ]]; then
     conda config --set always_yes yes --set changeps1 no
     conda update -q conda
 fi
-sudo apt-cache policy libc6
+sudo apt-get install libc6=2.17-0ubuntu5.1
