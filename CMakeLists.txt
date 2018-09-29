@@ -117,9 +117,6 @@ endif(USE_HDFS)
 
 if(UNIX OR MINGW OR CYGWIN)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread -O3 -Wextra -Wall -Wno-ignored-attributes -Wno-unknown-pragmas -Wno-return-type")
-endif()
-
-if(WIN32 AND MINGW)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++")
 endif()
 
@@ -229,18 +226,12 @@ if(USE_HDFS)
   TARGET_LINK_LIBRARIES(_lightgbm ${HDFS_CXX_LIBRARIES})
 endif(USE_HDFS)
 
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    target_link_libraries(lightgbm -static-libgcc -static-libstdc++)
-    target_link_libraries(_lightgbm -static-libgcc -static-libstdc++)
-endif()
-
 if(WIN32 AND (MINGW OR CYGWIN))
     TARGET_LINK_LIBRARIES(lightgbm Ws2_32)
     TARGET_LINK_LIBRARIES(_lightgbm Ws2_32)
     TARGET_LINK_LIBRARIES(lightgbm IPHLPAPI)
     TARGET_LINK_LIBRARIES(_lightgbm IPHLPAPI)
 endif()
-
 
 install(TARGETS lightgbm _lightgbm
         RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
