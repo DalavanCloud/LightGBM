@@ -117,6 +117,9 @@ endif(USE_HDFS)
 
 if(UNIX OR MINGW OR CYGWIN)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread -O3 -Wextra -Wall -Wno-ignored-attributes -Wno-unknown-pragmas -Wno-return-type")
+    endif()
+
+if(WIN32 AND MINGW)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++")
 endif()
 
@@ -213,6 +216,9 @@ if(USE_OPENMP)
     if(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
         TARGET_LINK_LIBRARIES(lightgbm ${OpenMP_libomp_LIBRARY})
         TARGET_LINK_LIBRARIES(_lightgbm ${OpenMP_libomp_LIBRARY})
+    elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        TARGET_LINK_LIBRARIES(lightgbm ${OpenMP_libgomp_LIBRARY})
+        TARGET_LINK_LIBRARIES(_lightgbm ${OpenMP_libgomp_LIBRARY})
     endif()
 endif(USE_OPENMP)
 
